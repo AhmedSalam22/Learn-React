@@ -1,18 +1,19 @@
-import React , { Component } from 'react';
+import React  from 'react';
 import { Card, CardImg, List, CardBody, CardTitle,  CardText} from 'reactstrap';
 
-class DishDetail extends Component {
-    constructor(props) {
-        super(props);
-    }
 
-    renderComments(comments) {
+function RenderDish({dish}) {
+
+}
+
+
+    function RenderComments({comments}) {
         if (comments != null) {
             const listOfComments = comments.map((comment) => {
                 return (
                     <list>
                         <li>{comment.comment}</li>
-                        <li>--{comment.author}, {comment.date.slice(0,10)}</li>
+                        <li>--{comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</li>
 
                     </list>
                 );
@@ -29,23 +30,26 @@ class DishDetail extends Component {
         }
     }
 
-    render() {
-        const dish = this.props.dish;
+    const DishDetail = (props) => {
+        const dish = props.dish;
         if (dish != null) {
             return (
-                <div className="row">
-                    <div className="col-12 col-md-5 m-1">
-                        <Card>
-                            <CardImg top width="20%" height="20%" src={dish.image}  alt={dish.name} /> 
-                            <CardBody>
-                                <CardTitle>{dish.name}</CardTitle>
-                                <CardText>{dish.description}</CardText>
-                            </CardBody>
-                        </Card>
-                    </div>
-                    <div className="col-12 col-md-5 m-1">
-                        <h4>Comments</h4>
-                        {this.renderComments(dish.comments)}
+                <div className="container position-sticky fixed-top">
+                    <div className="row">
+                        <div className="col-12">
+                            <Card>
+                                <CardImg top width="20%" height="20%" src={dish.image}  alt={dish.name} /> 
+                                <CardBody>
+                                    <CardTitle>{dish.name}</CardTitle>
+                                    <CardText>{dish.description}</CardText>
+                                </CardBody>
+                            </Card>
+                        </div>
+                        <div className="col-12">
+                            <h4>Comments</h4>
+                            <RenderComments comments={dish.comments}/>
+                        </div>
+                        <div className="col-12"></div>
                     </div>
                 </div>
             )
@@ -58,7 +62,7 @@ class DishDetail extends Component {
     }
 
 
-}
+
 
 
 export default DishDetail;
