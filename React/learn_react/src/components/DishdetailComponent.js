@@ -57,7 +57,7 @@ const DishDetail = (props) => {
     const dish = props.dish;
     if (dish != null) {
         return (
-            <div className="container position-sticky fixed-top">
+            <div className="container position-sticky fixed-top d-none d-lg-block">
                 <div className="row">
                     <div className="col-12">
                         <ButtonGroup>
